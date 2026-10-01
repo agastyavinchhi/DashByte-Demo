@@ -1,0 +1,20 @@
+services:
+  dashbite:
+    build: .
+    image: dashbite
+    container_name: dashbite
+    init: true                # passes Ctrl+C / stop signals on to the stack
+    ports:
+      - "8501:8501"           # Model Pulse at http://localhost:8501
+    volumes:
+      - dashbite-data:/app/data   # data/ survives restarts and `docker compose down`
+    stop_grace_period: 30s    # the runner gives each stage up to 10s to stop
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  dashbite-data:
