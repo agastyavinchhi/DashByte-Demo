@@ -207,7 +207,7 @@ All three roles used Claude Opus 5.5 in Claude Code, each in a separate conversa
 - Added tests I asked for: zero or negative config values fail with a clear error, prediction files keep an exact format, and `make config` uses the right clock default.
 
 ### Docker
-I did the Docker step manually with AI help, keeping it to a minimal `Dockerfile`, `.dockerignore` and `docker-compose.yml`. I made and checked the decisions myself: one container, a named volume for the data, a health check, keeping local state out with `.dockerignore`, the `DASHBOARD_HOST` fix, and the graceful-shutdown fix after my smoke test caught the problem.
+I did the Docker step manually, keeping it to a minimal `Dockerfile`, `.dockerignore` and `docker-compose.yml`. I made and checked the decisions myself: one container, a named volume for the data, and a health check.
 
 ---
 
