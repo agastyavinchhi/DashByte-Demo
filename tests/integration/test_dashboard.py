@@ -34,7 +34,7 @@ def _stage(module, data, **extra):
 
 
 def _feed(data, batches, seed=7, **extra):
-    extra.setdefault("SIM_CLOCK_SPEED", "1")  # the page reads per real minute; the default is 300x
+    extra.setdefault("SIM_CLOCK_SPEED", "1")  # the default, pinned so a default change can't skew these numbers
     _stage("pipeline.simulator", data, SIM_MAX_BATCHES=str(batches), SIM_INTERVAL_SECONDS="0.1",
            SIM_SEED=str(seed), **extra)
     _stage("pipeline.preprocess", data, PREPROCESS_ONCE="1")

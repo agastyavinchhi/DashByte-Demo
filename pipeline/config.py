@@ -84,8 +84,10 @@ class Config:
     sim_messy_rate: float = 0.05
     # An order is late when prep + 3 min/km + noise exceeds this many minutes.
     sim_late_threshold_minutes: float = 30.0
-    # Simulated seconds per real second. 300 = one simulated day in ~4.8 real minutes; 1 = real time.
-    sim_clock_speed: float = 300.0
+    # Simulated seconds per real second. 1 = real time, the default (Stage 6: the demo
+    # and Model Pulse's per-minute charts run on the wall clock). 300 = one simulated
+    # day in ~4.8 real minutes, opt-in for Stage 3's rush-hour beat.
+    sim_clock_speed: float = 1.0
     # Extra minutes added to the delivery estimate for orders placed at rush hour. 0 = off.
     sim_peak_delay_minutes: float = 8.0
     # The classroom poll cadence. It's the default for every *_POLL_SECONDS and for

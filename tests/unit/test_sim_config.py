@@ -76,9 +76,10 @@ def test_load_run_dir_ignores_other_bad_vars(tmp_path):
 
 def test_stage3_simulator_defaults_and_overrides():
     cfg = load_config({})
-    assert (cfg.sim_clock_speed, cfg.sim_peak_delay_minutes) == (300.0, 8.0)
-    cfg = load_config({"SIM_CLOCK_SPEED": "1", "SIM_PEAK_DELAY_MINUTES": "0"})
-    assert (cfg.sim_clock_speed, cfg.sim_peak_delay_minutes) == (1.0, 0.0)
+    # Default changed deliberately in Stage 6 from 300 to 1: the demo runs at real time.
+    assert (cfg.sim_clock_speed, cfg.sim_peak_delay_minutes) == (1.0, 8.0)
+    cfg = load_config({"SIM_CLOCK_SPEED": "300", "SIM_PEAK_DELAY_MINUTES": "0"})
+    assert (cfg.sim_clock_speed, cfg.sim_peak_delay_minutes) == (300.0, 0.0)
     assert load_config({"SIM_PEAK_DELAY_MINUTES": "12.5"}).sim_peak_delay_minutes == 12.5
 
 

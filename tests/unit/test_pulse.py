@@ -358,8 +358,8 @@ def test_clock_check(lead, warns):
     result = clock_check(newest, T0)
     assert (result is not None) is warns
     if warns:
-        # The default clock is 300x, so the fix has to name the real-time setting.
-        assert "fast simulated clock" in result and "then `SIM_CLOCK_SPEED=1 make run`" in result
+        assert "fast simulated clock" in result and "then `make run`" in result
+        assert "SIM_CLOCK_SPEED=" not in result  # real time is the default; nothing to type
 
 
 # ---------- the assembled view ----------

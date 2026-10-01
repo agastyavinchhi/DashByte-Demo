@@ -53,7 +53,7 @@ def test_simulator_writes_max_batches_and_exits(tmp_path):
     )
     assert result.returncode == 0, result.stderr
     assert ("batch size 10, every 0.1s, messy rate 5%, late after 30 min, "
-            "clock 300× (1 simulated day ≈ 4.8 min), up to 3 batches →") in result.stdout
+            "clock 1× (real time), up to 3 batches →") in result.stdout
     assert result.stdout.count("new orders arrived: 10 (") == 3
     assert "stopped after 3 batches, 30 orders" in result.stdout
     _assert_three_batches_of_ten(data_dir / "raw")

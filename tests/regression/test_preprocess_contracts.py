@@ -66,7 +66,10 @@ def test_preprocess_imports_only_shared_modules():
 
 def test_stage3_simulator_defaults_pinned():
     cfg = load_config({})
-    assert cfg.sim_clock_speed == 300
+    # Changed deliberately in Stage 6 from 300 to 1 (Architect decision, 2026-09-30):
+    # a plain `make run` stamps orders with the real time, so Model Pulse's per-minute
+    # charts read correctly. The 300x day-sweep is opt-in: SIM_CLOCK_SPEED=300.
+    assert cfg.sim_clock_speed == 1
     assert cfg.sim_peak_delay_minutes == 8
 
 

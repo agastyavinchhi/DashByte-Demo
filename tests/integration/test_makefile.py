@@ -52,18 +52,19 @@ def test_make_config_honours_env_overrides_from_any_cwd(tmp_path):
 
 
 @needs_venv
-def test_make_config_falls_back_to_300x_when_sim_clock_speed_is_removed(tmp_path):
-    # Model Pulse's demo has the room run SIM_CLOCK_SPEED=1, and a shell that still
-    # exports it quietly keeps every later run on the real-time clock. Once the
-    # variable is removed, `make config` must report the 300x default again.
+def test_make_config_falls_back_to_real_time_when_sim_clock_speed_is_removed(tmp_path):
+    # Stage 3's rush-hour demo has the room run SIM_CLOCK_SPEED=300, and a shell
+    # that still exports it would quietly put every later demo on the fast clock.
+    # Once the variable is removed, `make config` must report the real-time
+    # default (1x, since Stage 6), which Model Pulse's per-minute charts rely on.
     data_dir = tmp_path / "data"
-    leftover = clean_env(**{ENV_DATA_DIR: str(data_dir), ENV_SIM_CLOCK_SPEED: "1"})
+    leftover = clean_env(**{ENV_DATA_DIR: str(data_dir), ENV_SIM_CLOCK_SPEED: "300"})
 
     # First prove `make config` really reads the variable, so the check below means something.
     with_leftover = subprocess.run(["make", "-f", str(MAKEFILE), "config"], cwd=tmp_path,
                                    env=leftover, capture_output=True, text=True, timeout=60)
     assert with_leftover.returncode == 0, with_leftover.stderr
-    assert "sim_clock_speed = 1.0" in with_leftover.stdout.splitlines()
+    assert "sim_clock_speed = 300.0" in with_leftover.stdout.splitlines()
 
     removed = dict(leftover)
     del removed[ENV_SIM_CLOCK_SPEED]
@@ -72,7 +73,7 @@ def test_make_config_falls_back_to_300x_when_sim_clock_speed_is_removed(tmp_path
                             env=removed, capture_output=True, text=True, timeout=60)
     assert result.returncode == 0, result.stderr
     lines = result.stdout.splitlines()
-    assert "sim_clock_speed = 300.0" in lines  # the 300x default, exactly once
+    assert "sim_clock_speed = 1.0" in lines  # the real-time default, exactly once
     assert sum(line.startswith("sim_clock_speed = ") for line in lines) == 1
     assert all((data_dir / name).is_dir() for name in DATA_DIR_NAMES)
 

@@ -63,8 +63,8 @@ FAST_CLOCK_LEAD = pd.Timedelta(minutes=5)
 
 FAST_CLOCK_WARNING = (
     "The order feed is on a fast simulated clock, so per-minute charts will be sparse. "
-    "For the demo, restart it at real time: `make stop`, `make clean-data`, "
-    "then `SIM_CLOCK_SPEED=1 make run`."
+    "For the demo, restart it at real time (the default): `make stop`, `make clean-data`, "
+    "then `make run`."
 )
 _EPS = 1e-9
 
