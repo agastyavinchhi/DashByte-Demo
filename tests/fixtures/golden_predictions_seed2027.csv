@@ -1,0 +1,9 @@
+order_id,late_probability,predicted_late,checkpoint_id
+ORD-ea5fb5f88e,0.872,1,model_v0001
+ORD-c6dc419ace,0.097,0,model_v0001
+ORD-2dc2649796,0.527,1,model_v0001
+ORD-b37b3ef924,0.330,0,model_v0001
+ORD-456da36f6b,0.799,1,model_v0001
+ORD-06de01891f,0.792,1,model_v0001
+ORD-4f367f5a81,0.297,0,model_v0001
+ORD-406acefbc1,0.881,1,model_v0001
