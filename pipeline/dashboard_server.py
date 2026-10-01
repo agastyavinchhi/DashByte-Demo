@@ -12,6 +12,7 @@ no hot reload.
 """
 from __future__ import annotations
 
+import os
 import socket
 import sys
 import warnings
@@ -19,7 +20,7 @@ import warnings
 from pipeline.config import PROJECT_ROOT, load_config
 
 APP = PROJECT_ROOT / "pipeline" / "dashboard.py"
-HOST = "localhost"
+HOST = os.environ.get("DASHBOARD_HOST", "localhost")
 
 
 def port_in_use(port: int, host: str = HOST) -> bool:
